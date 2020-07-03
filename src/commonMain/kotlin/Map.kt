@@ -31,7 +31,7 @@ object Map {
         while((2*r+1)*(2*r+1)<=int){
             r++
         }
-        var intneu = int - (2*r+1)*(2*r+1)
+        var intneu = int - (2*r-1)*(2*r-1)
         if(intneu<2*r+1) return r
         else if (intneu<4*r+1) return r - int + 4
         else if (intneu<6*r+1) return -r
@@ -43,7 +43,7 @@ object Map {
         while((2*r+1)*(2*r+1)<=int){
             r++
         }
-        var intneu = int - (2*r+1)*(2*r+1)
+        var intneu = int - (2*r-1)*(2*r-1)
         if(intneu<2*r+1) return int - r
         else if (intneu<4*r+1) return -r
         else if (intneu<6*r+1) return int - r - 8
