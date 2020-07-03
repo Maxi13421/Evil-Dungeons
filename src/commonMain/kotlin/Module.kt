@@ -15,6 +15,8 @@ object MyModule : Module() {
     override suspend fun AsyncInjector.configure() {
         mapPrototype { Menu() }
         mapPrototype { Test() }
+        mapPrototype { Raumtest() }
+        mapPrototype { Level() }
     }
 
 }

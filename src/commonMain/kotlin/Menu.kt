@@ -30,10 +30,9 @@ class Menu : Scene() {
         /*
         val cir = solidRect(200,400,Colors.WHEAT)
         addChild(cir)
-
-         */
-        val sound = resourcesVfs["mscf.mp3"].readMusic()
+        val sound = resourcesVfs[""].readMusic()
         val channel = sound.play()
+         */
         val menuback = resourcesVfs["startscreen.png"].readBitmap()
         val menubacka = SpriteAnimation(
                 spriteMap = menuback,
@@ -51,19 +50,19 @@ class Menu : Scene() {
             xy(0,0)
         }
         addChild(mback)
-        addUpdater {
-                mback.playAnimation(menubacka, 125.milliseconds)
+        val playb = me.emig.libEmi.graphics.text.TextButton(x = 433, y= 550, text = "", width = 418, height = 159 ,skin= UISkin(resourcesVfs["playbutton.png"].readBitmapSlice(),resourcesVfs["playbuttonpressed.png"].readBitmapSlice(),resourcesVfs["playbutton.png"].readBitmapSlice())){
+            sceneContainer.changeTo<Level>()
         }
-        val playb = UIButton()
         addChild(playb)
-        playb.scale = 5.0
-        val ax = Triangle(Point(72.0,124.0),Point(0.0,0.0),Point(100.0,0.0))
-
               /*
                 .down(Key.SPACE) {
             sceneContainer.changeTo<Test>()
 
                */
+        addUpdater {
+            mback.playAnimation(menubacka, 125.milliseconds)
         }
+        }
+
     }
 
