@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 
 object MyModule : Module() {
     override val icon: String? = "korge.png"
-    override var size = SizeInt(1280, 720)
+    override var size = SizeInt(1280, 960)
     override val windowSize: SizeInt
         get() = super.windowSize
     override val title = "Evil Dungeons"

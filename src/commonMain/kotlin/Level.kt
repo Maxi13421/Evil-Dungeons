@@ -7,20 +7,36 @@ import com.soywiz.korge.view.*
 import com.soywiz.korim.format.readBitmap
 import com.soywiz.korio.file.std.resourcesVfs
 import com.soywiz.korio.lang.Thread_sleep
+import kotlin.math.abs
 
 class Level : Scene() {
     suspend override fun Container.sceneInit() {
-        camera {
-            var test = Image(resourcesVfs["Moon384.png"].readBitmap())
-            addChild(test)
+    Map.generateMap()
+        for(y in 0..100){
+            println(Map.map[y])
         }
+
+
+
+
         var v = 10
         var camx : Double = 0.0
         var camy : Double = 0.0
         var camxn : Double = 0.0
         var camyn : Double = 0.0
         camera {
-
+            var ax = 0
+            for(xxx in 0..50000){
+                if(Map.map[xxx]!=24){
+                    ax++
+                    println(ax)
+                    var x : Image = Image(resourcesVfs[Map.raumliste[Map.map[xxx]].sprite].readBitmap())
+                    x.scale = 3.3333
+                    x.x = Map.inttox(xxx).toDouble()*1280
+                    x.y = -Map.inttoy(xxx).toDouble()*960
+                    addChild(x)
+                }
+            }
 
 
 
@@ -72,36 +88,90 @@ class Level : Scene() {
                     offsetBetweenRows = 0
             )
             val player = Sprite(animationRight).apply {
-                scale = 2.0
+                scale = 3.0
                 xy(640, 360)
             }
             addChild(player)
             position(camx, camy)
             var lr: Boolean = true
+            var time : Long = 0
             addUpdater {
-                if (camx > camxn) {
+                time++
+                /*
+                print(player.x)
+                print(" ")
+                print(player.y)
+                print(" ")
+                println(Map.map[Map.plaroom])
 
-                        camx=camx - 10
+                 */
+                /*if(Map.raumliste[Map.map[Map.plaroom]].exith[0] && player.y+Map.inttoy(Map.plaroom)*960<0 ){
+                    Map.raumo()
+                    camyn = camyn + 960
+                }
+                if(Map.raumliste[Map.map[Map.plaroom]].exith[1] && player.x- Map.inttox(Map.plaroom)*1280>1280){
+                    Map.raumr()
+                    print("aa")
+                    camxn = camxn - 1280
+                }
+                /*
+                print(Map.raumliste[Map.map[Map.plaroom]].exith[1])
+                print(player.x- Map.inttox(Map.plaroom)*1280>1280)
+                print(player.y - Map.inttoy(Map.plaroom)*720 >= 300)
+                print(player.y - Map.inttoy(Map.plaroom)*720 <= 420)
+                print(Map.plaroom)
+
+                 */
+
+                if(Map.raumliste[Map.map[Map.plaroom]].exith[2] && player.y+ Map.inttoy(Map.plaroom)*960>960){
+                    Map.raumu()
+                    camyn = camyn - 960
+                }
+                if(Map.raumliste[Map.map[Map.plaroom]].exith[3] && player.x- Map.inttox(Map.plaroom)*1280<0){
+                    Map.rauml()
+                    camxn = camxn + 1280
+                }
+
+                 */
+                if(player.x>0){
+                    camxn= -player.x+player.x%1280
+                }
+                else{
+                    camxn= -player.x-abs(player.x%1280)
+                }
+                if(player.y>0){
+                    camyn = - player.y+player.y%960
+                }
+                else{
+                    camyn= -player.y-abs(player.y%960) + 960
+                }
+
+
+                for(aaa in 0..2) {
+                    if (camx > camxn) {
+
+                        camx = camx - 10
                         position(camx, camy)
 
-                }
-                if (camx < camxn) {
+                    }
+                    if (camx < camxn) {
 
-                    camx=camx + 10
-                    position(camx, camy)
+                        camx = camx + 10
+                        position(camx, camy)
 
-                }
-                if (camy > camyn) {
+                    }
+                    if (camy > camyn) {
 
-                    camy=camy - 10
-                    position(camx, camy)
+                        camy = camy - 10
+                        position(camx, camy)
 
-                }
-                if (camy < camyn) {
+                    }
+                    if (camy < camyn) {
 
-                    camy=camy + 10
-                    position(camx, camy)
+                        camy = camy + 10
+                        position(camx, camy)
 
+                    }
                 }
 
                 if (views.input.keys[Key.A]) {
@@ -137,6 +207,12 @@ class Level : Scene() {
                         player.playAnimation(standLeft, spriteDisplayTime = 1.milliseconds)
                     }
                 }
+                /*
+                print(player.x)
+                print("   ")
+                println(player.y - Map.inttoy(Map.plaroom)*720)
+
+                 */
             }
         }
     }
